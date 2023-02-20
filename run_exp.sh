@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 python main.py --seed 1 --task mnist_cnum25_dist0_skew0_seed0 --proportion 0.3 --theta_delta 1 --alpha 0.07 --model cnn --algorithm fast_fedUL --aggregate weighted_com --num_rounds 51 --num_epochs 20 --learning_rate 0.001 --batch_size 32 --clean_model 0 --eval_interval 1

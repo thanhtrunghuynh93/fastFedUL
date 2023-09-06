@@ -7,6 +7,7 @@ import pickle
 import os
 import utils.fflow as flw
 import torch 
+import random
 import json
 class Server():
     def __init__(self, option, model, clients, test_data = None, backtask_data = None):
@@ -164,16 +165,60 @@ class Server():
         ## self.model : global model before update
         ## models[cid] : model of client cid at round t
         
+        ## process for saving optimal updates
+        new_updates_this_round = self.processOptimalSaving(
+            [(self.model - models[idx]).cpu() for idx in  range(len(self.selected_clients))]
+            )
+        
         ## grad save as dict: {'cid' : grad}
         grads_this_round = {}
             
         for idx in range(len(self.selected_clients)):
             cid = self.selected_clients[idx]
-            grads_this_round[str(cid)] = (self.model - models[idx]).cpu()
-            # grads_this_round[str(cid)] = fmodule._model_to_cpu(self.model - models[idx])
+            grads_this_round[str(cid)] = new_updates_this_round[idx]
+            # grads_this_round[str(cid)] = (self.model - models[idx]).cpu()
         
         self.grads_all_round.append(grads_this_round)
 
+    def processOptimalSaving(self, update_from_clients, j_max=10):
+        """
+            m: expected batch size
+            w_i: weight for aggregation
+            j_max: maximum loops round
+        """
+        m = self.option['expected_saving']
+        norm_all_updates = [fmodule._model_norm(update_from_clients[idx]) for idx in range(len(self.selected_clients))]
+        weight = [1.0 * self.client_vols[cid]/self.data_vol for cid in self.selected_clients]
+        # compute u^k and u^k_i
+        u_k = [(weight[idx] * norm_all_updates[idx]) for idx in range(len(self.selected_clients))]
+        sum_uk = 0.0
+        for u_i in u_k:
+            sum_uk += u_i
+        # compute p^k_i
+        p_k = [min((1.0 * m * u_k_i)/sum_uk, 1.0) for u_k_i in u_k]
+        # loops for update p_k:
+        for j in range(j_max):
+            I_k = 0
+            P_k = 0.0
+            for pk_i in p_k:
+                if pk_i < 1:
+                    I_k += 1
+                    P_k += pk_i
+            C_k = 1.0 * (m - len(self.selected_clients) + I_k) / P_k
+            for idx in range(len(p_k)):
+                if p_k[idx] < 1: p_k[idx] = min(C_k * p_k[idx], 1)
+            # print(p_k)
+            if C_k <= 1: break
+        # Updates are saved at server based on probability p_k
+        ## find m largest values in p_k
+        # Use enumerate to create a list of (index, value) pairs and sort it based on values in descending order
+        sorted_indices = sorted(enumerate(p_k), key=lambda x: x[1], reverse=True)
+
+        # Get the indices of the m largest numbers
+        largest_idx = [index for index, _ in sorted_indices[:m]]
+        binary_weight = [1.0 if idx in largest_idx else 0.0 for idx in range(len(p_k))] 
+        
+        return [update_from_clients[idx] * binary_weight[idx] for idx in range(len(self.selected_clients))]
             
     def update_beta(self):
         sum_vol = 0.0

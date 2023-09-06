@@ -41,6 +41,8 @@ def read_option():
     parser.add_argument('--batch_size', help='batch size when clients trainset on data;', type=int, default=64)
     parser.add_argument('--optimizer', help='select the optimizer for gd', type=str, choices=optimizer_list, default='SGD')
     parser.add_argument('--momentum', help='momentum of local update', type=float, default=0)
+    # expected size of saving
+    parser.add_argument('--expected_saving', help='expected number of updates from clients for saving', type=int, default=5)
 
     # machine environment settings
     parser.add_argument('--seed', help='seed for random initialization;', type=int, default=0)

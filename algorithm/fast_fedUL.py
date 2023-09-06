@@ -166,7 +166,7 @@ class Server():
         ## models[cid] : model of client cid at round t
         
         ## process for saving optimal updates
-        new_updates_this_round = self.processOptimalSaving(
+        new_updates_this_round = self.efficientlyClientSampling(
             [(self.model - models[idx]).cpu() for idx in  range(len(self.selected_clients))]
             )
         
@@ -180,7 +180,7 @@ class Server():
         
         self.grads_all_round.append(grads_this_round)
 
-    def processOptimalSaving(self, update_from_clients, j_max=10):
+    def efficientlyClientSampling(self, update_from_clients, j_max=10):
         """
             m: expected batch size
             w_i: weight for aggregation

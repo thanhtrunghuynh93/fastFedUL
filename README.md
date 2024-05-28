@@ -1,5 +1,5 @@
 # Fast-FedUL
-Repo for 'Federated Unlearning with Provable Skew Resilience: A Training-Free Approach'
+Repo for 'Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience'
 
 ## QuickStart
 

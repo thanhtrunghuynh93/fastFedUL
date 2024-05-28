@@ -161,7 +161,7 @@ class DefaultTaskGen(BasicTaskGen):
         print('Partitioning data...')
         local_datas = self.partition()
         train_cidxs, valid_cidxs = self.local_holdout(local_datas, rate=0.8, shuffle=True)
-        # Vu Viet Bach
+        # 
         self.train_cidxs = train_cidxs
         self.valid_cidxs = valid_cidxs
         print('Done.')
@@ -445,11 +445,7 @@ class ClassifyCalculator(BasicTaskCalculator):
         if self.DataLoader == None:
             raise NotImplementedError("DataLoader Not Found.")
         return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, drop_last=droplast, worker_init_fn=seed_worker, generator=g)
-        # if self.DataLoader == None:
-        #     raise NotImplementedError("DataLoader Not Found.")
-        # return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, drop_last=droplast)
-    
-## Bang Nguyen Trong
+
 ## Evidential Deep Learning to Quantify Classification Uncertainty
 
 class BasicTaskReader:
@@ -518,7 +514,6 @@ class XYDataset(Dataset):
         """
         if not self._check_equal_length(X, Y):
             raise RuntimeError("Different length of Y with X.")
-        #"Vu Viet Bach modify XYDataset in benchmark/toolkits.py"
         # Begin change
         # force totensor equal true
         totensor = True

@@ -1,4 +1,7 @@
 # Fast-FedUL
+
+[![arXiv](https://img.shields.io/badge/arXiv-2405.18040-b31b1b.svg)](https://arxiv.org/abs/2405.18040)
+
 Repo for 'Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience'
 
 ## QuickStart

@@ -2,7 +2,6 @@
 **/__pycache__/**
 **/data/**
 customdata/ARDIS_DATASET_IV/*.csv
-customdata/southwest_airline/**
 /fedtask/mnist_cnum25_dist0_skew0_seed0/**
 /fedtask/cifar10_cnum18_dist0_skew0_seed0/**
 /fedtask/medmnist_cnum11_dist0_skew0_seed0/**

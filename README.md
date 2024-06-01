@@ -6,6 +6,8 @@ Repo for 'Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Re
 
 ## Citation
 
+Please read and cite our paper: [![arXiv](https://img.shields.io/badge/arXiv-2405.18040-b31b1b.svg)](https://arxiv.org/abs/2405.18040)
+
 >Huynh, T.T., Nguyen, T.B., Nguyen, P.L., Nguyen, T.T., Weidlich, M., Nguyen, Q.V.H. and Aberer, K., 2024. Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience. arXiv preprint arXiv:2405.18040.
 
 ```

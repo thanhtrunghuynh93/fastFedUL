@@ -4,6 +4,19 @@
 
 Repo for 'Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience'
 
+## Citation
+
+>Huynh, T.T., Nguyen, T.B., Nguyen, P.L., Nguyen, T.T., Weidlich, M., Nguyen, Q.V.H. and Aberer, K., 2024. Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience. arXiv preprint arXiv:2405.18040.
+
+```
+@article{huynh2024fast,
+  title={Fast-FedUL: A Training-Free Federated Unlearning with Provable Skew Resilience},
+  author={Huynh, Thanh Trung and Nguyen, Trong Bang and Nguyen, Phi Le and Nguyen, Thanh Tam and Weidlich, Matthias and Nguyen, Quoc Viet Hung and Aberer, Karl},
+  journal={arXiv preprint arXiv:2405.18040},
+  year={2024}
+}
+```
+
 ## QuickStart
 
 **First**, run the command below to get the ARDIS dataset (which is used as backdoor data for MNIST dataset):
